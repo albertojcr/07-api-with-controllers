@@ -6,6 +6,12 @@
     "methods": ["GET"]
   },
   {
+    "name": "js",
+    "path": "/js",
+    "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\JsController::execute",
+    "methods": ["GET"]
+  },
+  {
     "name": "get_all_users",
     "path": "/users",
     "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\User\\GetAllUsersController::execute",

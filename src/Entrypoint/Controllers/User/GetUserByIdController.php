@@ -17,7 +17,7 @@ class GetUserByIdController
 
     public function execute(Request $request): Response
     {
-        $userId = $request->get('userId');
+        $userId = $request->get('id');
         $user = $this->service->execute($userId);
         return new JsonResponse($user);
     }

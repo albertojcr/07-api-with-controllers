@@ -49,7 +49,8 @@ class CsvUserRepository implements UserRepository
             throw new Exception('File not found');
         }
         fputcsv($file, [
-            $user->id(), $user->name(), $user->email()->value(), $user->password(), $user->role()->value()
+            $user->id(), $user->name(), $user->image(), $user->isActive(), $user->endDate(), $user->currentPrice(),
+            $user->directBidPrice1(), $user->directBidPrice2(), $user->directBidPrice3()
         ]);
         fclose($file);
     }
@@ -59,9 +60,13 @@ class CsvUserRepository implements UserRepository
         return new User(
             $data[0],
             $data[1],
-            new Email( $data[2]),
+            $data[2],
             $data[3],
-            new Role( $data[4])
+            $data[4],
+            $data[5],
+            $data[6],
+            $data[7],
+            $data[8]
         );
     }
 

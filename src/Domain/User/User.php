@@ -10,25 +10,32 @@ class User implements \JsonSerializable
 {
     private string $id;
     private string $name;
-    private Email $email;
-    private string $password;
-    private Role $role;
+    private string $image;
+    private bool $isActive;
+    private string $endDate;
+    private int $currentPrice;
+    private int $directBidPrice1;
+    private int $directBidPrice2;
+    private int $directBidPrice3;
 
-    public function __construct(string $id, string $name, Email $email, string $password, Role $role)
+    public function __construct(string $id, string $name, string $image, bool $isActive, string $endDate,
+                                int $currentPrice, int $directBidPrice1, int $directBidPrice2, int $directBidPrice3)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->email = $email;
-        $this->password = $password;
-        $this->role = $role;
+        $this->image = $image;
+        $this->isActive = $isActive;
+        $this->endDate = $endDate;
+        $this->currentPrice = $currentPrice;
+        $this->directBidPrice1 = $directBidPrice1;
+        $this->directBidPrice2 = $directBidPrice2;
+        $this->directBidPrice3 = $directBidPrice3;
     }
 
-    public static function create(string $name, Email $email, string $password, Role $role): User
+    public static function create(string $id, string $name, string $image, bool $isActive, string $endDate,
+                                  int $currentPrice, int $directBidPrice1, int $directBidPrice2, int $directBidPrice3): User
     {
-        if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
-            throw new EmailNotValidException();
-        }
-        return new self(uniqid(), $name, $email, $password,  $role );
+        return new self(uniqid(), $id, $name, $image, $isActive, $endDate, $currentPrice, $directBidPrice1, $directBidPrice2, $directBidPrice3);
     }
 
     public function id(): string
@@ -41,19 +48,39 @@ class User implements \JsonSerializable
         return $this->name;
     }
 
-    public function email(): Email
+    public function image(): string
     {
-        return $this->email;
+        return $this->image;
     }
 
-    public function password(): string
+    public function isActive(): bool
     {
-        return $this->password;
+        return $this->isActive;
     }
 
-    public function role(): Role
+    public function endDate(): string
     {
-        return $this->role;
+        return $this->endDate;
+    }
+
+    public function currentPrice(): int
+    {
+        return $this->currentPrice;
+    }
+
+    public function directBidPrice1(): int
+    {
+        return $this->directBidPrice1;
+    }
+
+    public function directBidPrice2(): int
+    {
+        return $this->directBidPrice2;
+    }
+
+    public function directBidPrice3(): int
+    {
+        return $this->directBidPrice3;
     }
 
     public function jsonSerialize()
@@ -61,8 +88,13 @@ class User implements \JsonSerializable
         return [
             'id' => $this->id(),
             'name' => $this->name(),
-            'email' => $this->email()->value(),
-            'role' => $this->role()->value()
+            'image' => $this->image(),
+            'isActive' => $this->isActive(),
+            'endDate' => $this->endDate(),
+            'currentPrice' => $this->currentPrice(),
+            'directBidPrice1' => $this->directBidPrice1(),
+            'directBidPrice2' => $this->directBidPrice2(),
+            'directBidPrice3' => $this->directBidPrice3()
         ];
     }
 
