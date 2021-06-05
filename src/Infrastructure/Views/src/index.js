@@ -1,6 +1,4 @@
-fetch(
-  "https://subastapp-edcc8-default-rtdb.europe-west1.firebasedatabase.app/.json"
-)
+fetch("http://localhost:9200/users")
   .then(function (response) {
     return response.json();
   })
@@ -14,11 +12,11 @@ fetch(
     const MANUALBIDFORM = document.getElementById("directBidForm");
     const TBODY = document.getElementsByTagName("tbody")[0];
 
-    for (let i in data.article) {
+    for (let i in data) {
       let cardStatus;
       let modalToggler;
       let paragraphStatus;
-      if (data.auction[i].activeBinding == "true") {
+      if (data[i].isActive == true) {
         cardStatus = "card-enabled";
         paragraphStatus = `<p class="card-text text-success">Subasta abierta</p>`;
         modalToggler = `data-bs-toggle="modal" data-bs-target="#itemModal"`;
@@ -30,8 +28,8 @@ fetch(
         <div class="col" index="${i}">
         <div class="card ${cardStatus}" ${modalToggler}>
           <div class="card-body text-center">
-            <img src="${data.article[i].image}" class="card-img-top mb-3" alt="..." />
-            <h5 class="card-title">${data.article[i].name}</h5>
+            <img src="${data[i].image}" class="card-img-top mb-3" alt="..." />
+            <h5 class="card-title">${data[i].name}</h5>
             ${paragraphStatus}
           </div>
         </div>
@@ -48,7 +46,7 @@ fetch(
     }
 
     // Time counter
-    const ENDDATE = new Date("May 31, 2021 23:59:59").getTime();
+    const ENDDATE = new Date("May 31, 2022 23:59:59").getTime();
     const X = setInterval(function () {
       const NOW = new Date().getTime();
       const DISTANCE = ENDDATE - NOW;
@@ -100,7 +98,7 @@ fetch(
       e.preventDefault();
       let inputValue = this.getElementsByTagName("input")[0].value;
       const INDEX = document.getElementById("itemModal").getAttribute("index");
-      const MINBIDVALUE = parseInt(data.auction[INDEX].directBiddingPrices[0], 10);
+      const MINBIDVALUE = parseInt(data[INDEX].directBidPrice1, 10);
       if (inputValue >= MINBIDVALUE) {
         prepareBidData(INDEX, inputValue);
       } else {
@@ -111,11 +109,11 @@ fetch(
 
     // Methods
     function getBidData(index) {
-      let currentPrice = parseInt(data.auction[index].currentPrice, 10);
-      let directBid1 = parseInt(data.auction[index].directBiddingPrices[0], 10);
-      let directBid2 = parseInt(data.auction[index].directBiddingPrices[1], 10);
-      let directBid3 = parseInt(data.auction[index].directBiddingPrices[2], 10);
-      let bids = data.auction[index].biddingHistory;
+      let currentPrice = parseInt(data[index].currentPrice, 10);
+      let directBid1 = parseInt(data[index].directBidPrice1, 10);
+      let directBid2 = parseInt(data[index].directBidPrice2, 10);
+      let directBid3 = parseInt(data[index].directBidPrice3, 10);
+      let bids = data[index].biddingHistory;
 
       printBidData(index, currentPrice, directBid1,
         directBid2, directBid3, bids);
@@ -123,8 +121,8 @@ fetch(
 
     function printBidData(index, currentPrice, directBid1,
                           directBid2, directBid3, bids) {
-      document.getElementById('modalTitle').textContent = data.article[index].name;
-      document.getElementById('modalImg').src = data.article[index].image;
+      document.getElementById('modalTitle').textContent = data[index].name;
+      document.getElementById('modalImg').src = data[index].image;
       document.getElementById("currentPrice").innerHTML = currentPrice;
       document.getElementById("nextBidPrice").innerHTML = directBid1;
       DIRECTBIDBTN1.innerHTML = directBid1 + "€";

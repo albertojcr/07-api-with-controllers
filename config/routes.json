@@ -24,6 +24,12 @@
     "methods": ["GET"]
   },
   {
+    "name": "get_bids_by_article_id",
+    "path": "/users/{id}/bids",
+    "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\User\\GetUserByIdController::execute",
+    "methods": ["GET"]
+  },
+  {
     "name": "create_user",
     "path": "/users",
     "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\User\\CreateUserController::execute",
