@@ -18,7 +18,7 @@ class CsvBidRepository implements BidRepository
 
         while (($data = fgetcsv($file, 1000, ',')) !== false) {
             $bid = $this->hydrate($data);
-            $this->bids[$bid->articleId()] = $bid; //revisar id()
+            $this->bids[$bid->bidId()] = $bid; //revisar id()
         }
 
         fclose($file);
@@ -29,15 +29,21 @@ class CsvBidRepository implements BidRepository
         return array_values($this->bids);
     }
 
-    public function findByArticleId(string $articleId): ?Bid
+    public function findByArticleId(string $articleId): array
     {
+        $bidsMatchingArticleId = array();
         foreach ($this->bids as $bid) {
+            //echo $bid->bidId();
+
             if ($bid->articleId() === $articleId) {
-                return $bid;
+                //añadir elemento a array
+                //echo 'e';
+                array_push($bidsMatchingArticleId, $bid);
+                //return $bid;
             }
         }
 
-        return null;
+        return array_values($bidsMatchingArticleId);
     }
 
     public function save(Bid $bid): void

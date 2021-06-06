@@ -107,6 +107,24 @@ fetch("http://localhost:9200/users")
       this.reset();
     });
 
+    getBidsByArticleId(1);
+
+    function getBidsByArticleId(index) {
+      fetch(`http://localhost:9200/users/${index}/bids`)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            console.log(data[0].createdAtTime);
+          });
+
+
+
+    }
+
+
+
+
     // Methods
     function getBidData(index) {
       let currentPrice = parseInt(data[index].currentPrice, 10);

@@ -15,7 +15,7 @@ class GetBidsByArticleIdService
     public function __construct(BidRepository $bidRepository) {
         $this->bidRepository = $bidRepository;
     }
-    public function execute(string $id): Bid {
+    public function execute(string $id): array {
         $bid =  $this->bidRepository->findByArticleId($id);
 
         if ($bid === null) {
