@@ -5,7 +5,7 @@ namespace IESLaCierva\Entrypoint\Controllers\User\ValueObject;
 
 
 use IESLaCierva\Application\User\ValueObject\GetBidsByArticleId\GetBidsByArticleIdService;
-use IESLaCierva\Infrastructure\Files\BidsRepository;
+use IESLaCierva\Infrastructure\Files\CsvBidRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +14,7 @@ class GetBidsByArticleIdController
 {
     public function __construct()
     {
-        $this->service = new GetBidsByArticleIdService(new BidsRepository());
+        $this->service = new GetBidsByArticleIdService(new CsvBidRepository());
     }
 
     public function execute(Request $request): Response

@@ -4,8 +4,8 @@
 namespace IESLaCierva\Application\User\ValueObject\GetBidsByArticleId;
 
 
-use IESLaCierva\Domain\User\Exceptions\UserNotFoundException;
-use IESLaCierva\Domain\User\User;
+use IESLaCierva\Domain\User\Exceptions\BidNotFoundException;
+use IESLaCierva\Domain\User\ValueObject\Bid;
 use IESLaCierva\Domain\User\BidRepository;
 
 class GetBidsByArticleIdService
@@ -19,8 +19,7 @@ class GetBidsByArticleIdService
         $bid =  $this->bidRepository->findByArticleId($id);
 
         if ($bid === null) {
-            //throw new UserNotFoundException();
-            return "Bid by article id not found";
+            throw new BidNotFoundException();
         }
 
         return $bid;

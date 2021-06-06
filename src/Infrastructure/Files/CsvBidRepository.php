@@ -5,7 +5,7 @@ namespace IESLaCierva\Infrastructure\Files;
 use IESLaCierva\Domain\User\ValueObject\Bid;
 use IESLaCierva\Domain\User\BidRepository;
 
-class BidsRepository implements BidRepository
+class CsvBidRepository implements BidRepository
 {
     private array $bids;
 
@@ -18,17 +18,17 @@ class BidsRepository implements BidRepository
 
         while (($data = fgetcsv($file, 1000, ',')) !== false) {
             $bid = $this->hydrate($data);
-            $this->bids[$bid->id()] = $bid;
+            $this->bids[$bid->articleId()] = $bid; //revisar id()
         }
 
         fclose($file);
     }
-/*
+
     public function findAll(): array
     {
-        return array_values($this->users);
+        return array_values($this->bids);
     }
-*/
+
     public function findByArticleId(string $articleId): ?Bid
     {
         foreach ($this->bids as $bid) {
@@ -39,20 +39,19 @@ class BidsRepository implements BidRepository
 
         return null;
     }
-/*
-    public function save(User $user): void
+
+    public function save(Bid $bid): void
     {
-        $file = fopen(__DIR__.'/users.csv', "a");
+        $file = fopen(__DIR__.'/bids.csv', "a");
         if (false === $file) {
             throw new Exception('File not found');
         }
         fputcsv($file, [
-            $user->id(), $user->name(), $user->image(), $user->isActive(), $user->endDate(), $user->currentPrice(),
-            $user->directBidPrice1(), $user->directBidPrice2(), $user->directBidPrice3()
+            $bid->bidId(), $bid->articleId(), $bid->price(), $bid->createdAtDate(), $bid->createdAtTime()
         ]);
         fclose($file);
     }
-*/
+
     private function hydrate($data): Bid
     {
         return new Bid(
@@ -60,11 +59,7 @@ class BidsRepository implements BidRepository
             $data[1],
             $data[2],
             $data[3],
-            $data[4],
-            $data[5],
-            $data[6],
-            $data[7],
-            $data[8]
+            $data[4]
         );
     }
 

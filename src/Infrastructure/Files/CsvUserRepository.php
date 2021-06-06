@@ -4,8 +4,6 @@ namespace IESLaCierva\Infrastructure\Files;
 
 use IESLaCierva\Domain\User\User;
 use IESLaCierva\Domain\User\UserRepository;
-use IESLaCierva\Domain\User\ValueObject\Email;
-use IESLaCierva\Domain\User\ValueObject\Role;
 
 class CsvUserRepository implements UserRepository
 {

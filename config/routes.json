@@ -26,7 +26,7 @@
   {
     "name": "get_bids_by_article_id",
     "path": "/users/{id}/bids",
-    "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\User\\GetUserByIdController::execute",
+    "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\User\\ValueObject\\GetBidsByArticleIdController::execute",
     "methods": ["GET"]
   },
   {
