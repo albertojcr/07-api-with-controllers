@@ -1,7 +1,7 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $file = fopen('./../src/Infrastructure/Files/users.csv', "r");
+    $file = fopen('./../src/Infrastructure/Files/articles.csv', "r");
     if (false === $file) {
         throw new Exception('File not found');
     }
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $file = fopen('./../src/Infrastructure/Files/users.csv', "a");
+    $file = fopen('./../src/Infrastructure/Files/articles.csv', "a");
     if (false === $file) {
         throw new Exception('File not found');
     }

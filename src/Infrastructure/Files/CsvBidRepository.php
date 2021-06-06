@@ -2,8 +2,9 @@
 
 namespace IESLaCierva\Infrastructure\Files;
 
-use IESLaCierva\Domain\User\ValueObject\Bid;
-use IESLaCierva\Domain\User\BidRepository;
+use IESLaCierva\Domain\Article\Exceptions\BidNotFoundException;
+use IESLaCierva\Domain\Article\ValueObject\Bid;
+use IESLaCierva\Domain\Article\BidRepository;
 
 class CsvBidRepository implements BidRepository
 {
@@ -18,7 +19,7 @@ class CsvBidRepository implements BidRepository
 
         while (($data = fgetcsv($file, 1000, ',')) !== false) {
             $bid = $this->hydrate($data);
-            $this->bids[$bid->bidId()] = $bid; //revisar id()
+            $this->bids[$bid->bidId()] = $bid;
         }
 
         fclose($file);
@@ -33,14 +34,13 @@ class CsvBidRepository implements BidRepository
     {
         $bidsMatchingArticleId = array();
         foreach ($this->bids as $bid) {
-            //echo $bid->bidId();
-
             if ($bid->articleId() === $articleId) {
-                //añadir elemento a array
-                //echo 'e';
                 array_push($bidsMatchingArticleId, $bid);
-                //return $bid;
             }
+        }
+
+        if ($bidsMatchingArticleId == null) {
+            throw new BidNotFoundException();
         }
 
         return array_values($bidsMatchingArticleId);
@@ -53,7 +53,7 @@ class CsvBidRepository implements BidRepository
             throw new Exception('File not found');
         }
         fputcsv($file, [
-            $bid->bidId(), $bid->articleId(), $bid->price(), $bid->createdAtDate(), $bid->createdAtTime()
+            $bid->bidId(), $bid->articleId(), $bid->price(), $bid->createdAtDateTime()
         ]);
         fclose($file);
     }
@@ -64,8 +64,7 @@ class CsvBidRepository implements BidRepository
             $data[0],
             $data[1],
             $data[2],
-            $data[3],
-            $data[4]
+            $data[3]
         );
     }
 

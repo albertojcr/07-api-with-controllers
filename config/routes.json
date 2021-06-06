@@ -12,27 +12,33 @@
     "methods": ["GET"]
   },
   {
-    "name": "get_all_users",
-    "path": "/users",
-    "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\User\\GetAllUsersController::execute",
+    "name": "get_all_articles",
+    "path": "/articles",
+    "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\Article\\GetAllArticlesController::execute",
     "methods": ["GET"]
   },
   {
-    "name": "get_user_by_id",
-    "path": "/users/{id}",
-    "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\User\\GetUserByIdController::execute",
+    "name": "get_article_by_id",
+    "path": "/articles/{id}",
+    "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\Article\\GetArticleByIdController::execute",
     "methods": ["GET"]
+  },
+  {
+    "name": "create_article",
+    "path": "/articles",
+    "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\User\\CreateUserController::execute",
+    "methods": ["POST"]
   },
   {
     "name": "get_bids_by_article_id",
-    "path": "/users/{id}/bids",
-    "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\User\\ValueObject\\GetBidsByArticleIdController::execute",
+    "path": "/articles/{id}/bids",
+    "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\Article\\ValueObject\\GetBidsByArticleIdController::execute",
     "methods": ["GET"]
   },
   {
-    "name": "create_user",
-    "path": "/users",
-    "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\User\\CreateUserController::execute",
+    "name": "create_bid",
+    "path": "/articles/{id}/bids/create",
+    "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\Article\\ValueObject\\CreateBidController::execute",
     "methods": ["POST"]
   }
 ]
