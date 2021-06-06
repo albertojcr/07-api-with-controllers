@@ -4,7 +4,7 @@
 namespace IESLaCierva\Domain\User\ValueObject;
 
 
-class Bid
+class Bid implements \JsonSerializable
 {
     private string $bidId;
     private string $articleId;
