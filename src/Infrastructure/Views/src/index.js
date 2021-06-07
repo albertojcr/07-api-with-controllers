@@ -3,7 +3,7 @@ fetch("http://localhost:9200/articles")
     return response.json();
   })
   .then(function (data) {
-    // Global
+
     const RESULTSDIV = document.getElementById("resultsDiv");
     const ACTIVEBIDS = document.getElementsByClassName("card-enabled");
     const DESCRIPTIONDIV = document.getElementById("descriptionDiv");
@@ -12,6 +12,7 @@ fetch("http://localhost:9200/articles")
     const DIRECTBIDBTN3 = document.getElementById("fbtn3");
     const MANUALBIDFORM = document.getElementById("directBidForm");
     const TBODY = document.getElementsByTagName("tbody")[0];
+    let ENDDATE;
 
     for (let i in data) {
       let cardStatus;
@@ -42,12 +43,13 @@ fetch("http://localhost:9200/articles")
       ACTIVEBIDS[i].addEventListener("click", function () {
         const INDEX = ACTIVEBIDS[i].parentElement.getAttribute("index");
         document.getElementById("itemModal").setAttribute("index", INDEX);
+        ENDDATE = new Date(data[INDEX].endDate).getTime();
         getBidData(INDEX);
       });
     }
 
     // Time counter
-    const ENDDATE = new Date("May 31, 2022 23:59:59").getTime();
+
     const X = setInterval(function () {
       const NOW = new Date().getTime();
       const DISTANCE = ENDDATE - NOW;
@@ -114,7 +116,7 @@ fetch("http://localhost:9200/articles")
       let directBid1 = parseInt(data[index].directBidPrice1, 10);
       let directBid2 = parseInt(data[index].directBidPrice2, 10);
       let directBid3 = parseInt(data[index].directBidPrice3, 10);
-      let bids = getBidHistoryByArticleId(parseInt(index)+1); //revisar esto
+      let bids = getBidHistoryByArticleId(parseInt(index)+1);
 
       printBidData(index, currentPrice, directBid1,
         directBid2, directBid3);
@@ -194,7 +196,7 @@ fetch("http://localhost:9200/articles")
       let directBid2 = directBid1 + 5;
       let directBid3 = directBid2 + 5;
 
-      const URL = `http://localhost:9200/articles/${parseInt(index)+1}/edit`;
+      const URL = `http://localhost:9200/articles/${index}/edit`;
       const DATA =  {
         id: data[index-1].id,
         name: data[index-1].name,
@@ -208,7 +210,6 @@ fetch("http://localhost:9200/articles")
         directBidPrice3: directBid3
       };
 
-      console.log(DATA);/*
       fetch(URL, {
         method: "POST",
         body: JSON.stringify(DATA),
@@ -220,8 +221,22 @@ fetch("http://localhost:9200/articles")
         .catch((error) => console.error("Error:", error))
         .then(function(response) {
           console.log("Success:", response)
-          //getBidData(index);
-        });*/
+          updateBidData(parseInt(index)-1);
+        });
+    }
+
+    function updateBidData(index) {
+      console.log(index);
+      let currentPrice = parseInt(data[index].currentPrice, 10);
+      let directBid1 = parseInt(data[index].directBidPrice1, 10);
+      let directBid2 = parseInt(data[index].directBidPrice2, 10);
+      let directBid3 = parseInt(data[index].directBidPrice3, 10);
+      document.getElementById("currentPrice").innerHTML = currentPrice;
+      document.getElementById("nextBidPrice").innerHTML = directBid1;
+      DESCRIPTIONDIV.innerHTML = data[index].description;
+      DIRECTBIDBTN1.innerHTML = directBid1 + "€";
+      DIRECTBIDBTN2.innerHTML = directBid2 + "€";
+      DIRECTBIDBTN3.innerHTML = directBid3 + "€";
     }
 
     function successAlert() {

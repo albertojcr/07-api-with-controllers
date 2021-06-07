@@ -72,6 +72,33 @@ class CsvArticleRepository implements ArticleRepository
 
     public function edit(Article $article): void
     {
-        // TODO: Implement edit() method.
+        $file = fopen(__DIR__ . '/articles.csv', "a");
+        if (false === $file) {
+            throw new Exception('File not found');
+        }
+        $articlesNotMatched = array();
+
+        foreach ($this->articles as $item) {
+            if ($item->id() != $article->id()) {
+                array_push($articlesNotMatched, [
+                    $item->id(), $item->name(), $item->description(), $item->image(), $item->isActive(), $item->endDate(), $item->currentPrice(),
+                    $item->directBidPrice1(), $item->directBidPrice2(), $item->directBidPrice3()
+                ]);
+            }
+        }
+        $str = file_get_contents($file);
+        $numCharSpace = strlen($str);
+        ftruncate($file, $numCharSpace);
+
+        fputcsv($file, [
+            $article->id(), $article->name(), $article->description(), $article->image(), $article->isActive(), $article->endDate(), $article->currentPrice(),
+            $article->directBidPrice1(), $article->directBidPrice2(), $article->directBidPrice3()
+        ]);
+
+        foreach ($articlesNotMatched as $item) {
+            fputcsv($file, $item);
+        }
+
+        fclose($file);
     }
 }

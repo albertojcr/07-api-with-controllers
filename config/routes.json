@@ -31,7 +31,7 @@
   },
   {
     "name": "edit_article",
-    "path": "/articles",
+    "path": "/articles/{id}/edit",
     "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\Article\\EditArticleController::execute",
     "methods": ["POST"]
   },
