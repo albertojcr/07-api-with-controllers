@@ -1,13 +1,7 @@
 <?php require_once 'header.php'; ?>
 
     <!-- Modal -->
-    <div
-            class="modal fade"
-            id="itemModal"
-            tabindex="-1"
-            aria-labelledby="itemModalLabel"
-            aria-hidden="true" index=""
-    >
+    <div class="modal fade" id="itemModal" tabindex="-1" aria-labelledby="itemModalLabel" aria-hidden="true" index="">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -27,69 +21,36 @@
                                     d="M2 1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2a1 1 0 0 1 1-1zm0 5.586 7 7L13.586 9l-7-7H2v4.586z"
                             />
                         </svg>
-                        <!--Java 2 for dummies-->
                     </h4>
-                    <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                    ></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col pb-3">
                             <div class="card-body d-flex justify-content-between">
-                                <div class="flex-column">
-                                    <p>Estado: <span class="text-secondary">usado</span></p>
-                                    <p>Autor: <span class="text-secondary">Barry Burd</span></p>
-                                    <p>Páginas: <span class="text-secondary">267</span></p>
-                                    <p>Idioma: <span class="text-secondary">Inglés</span></p>
-                                    <p>
-                                        Extras: <span class="text-secondary">incluye CD</span>
-                                    </p>
-                                </div>
+                                <div id="descriptionDiv" class="flex-column"></div>
                                 <img id="modalImg" src="" alt="item-image" class="shadow img-bid" />
                             </div>
                         </div>
                         <div class="col">
                             <h3 id="counter"></h3>
-                            <hr />
+                            <hr/>
                             <p>El precio está en <span id="currentPrice"></span>€</p>
-                            <hr />
-                            <p>
-                                La siguiente puja está en <span id="nextBidPrice"></span>€
-                            </p>
+                            <hr/>
+                            <p>La siguiente puja está en <span id="nextBidPrice"></span>€</p>
                             <p class="text-secondary">Gastos de envío 9€</p>
-                            <hr />
+                            <hr/>
                             <h5>Puja rápida</h5>
                             <div class="d-flex justify-content-between">
-                                <button
-                                        id="fbtn1"
-                                        type="button"
-                                        class="btn btn-info px-5 nopad"
-                                ></button>
-                                <button
-                                        id="fbtn2"
-                                        type="button"
-                                        class="btn btn-info px-5 nopad"
-                                ></button>
-                                <button
-                                        id="fbtn3"
-                                        type="button"
-                                        class="btn btn-info px-5 nopad"
-                                ></button>
+                                <button id="fbtn1" type="button" class="btn btn-info nopad"></button>
+                                <button id="fbtn2" type="button" class="btn btn-info nopad"></button>
+                                <button id="fbtn3" type="button" class="btn btn-info nopad"></button>
                             </div>
                             <hr />
                             <h5>Puja directa</h5>
                             <form id="directBidForm" class="row">
                                 <div class="col">
-                                    <input
-                                            type="text"
-                                            class="form-control"
-                                            pattern="^[0-9]+$" placeholder="Ej. 10"
-                                            required
-                                    />
+                                    <input type="text" class="form-control" pattern="^[0-9]+$" placeholder="Ej. 10" required/>
                                 </div>
                                 <div class="col">
                                     <button type="submit" class="btn btn-success">
@@ -119,7 +80,7 @@
                                     </button>
                                 </div>
                             </form>
-                            <hr />
+                            <hr/>
                             <h5>Pujas realizadas</h5>
                             <table class="table table-striped text-center">
                                 <thead>

@@ -53,6 +53,33 @@ class CsvArticleRepository implements ArticleRepository
         fclose($file);
     }
 
+    public function edit(Article $article): void
+    {
+        echo $article->id();
+        $file = fopen(__DIR__ . '/articles.csv', "a");
+        if (false === $file) {
+            throw new Exception('File not found');
+        }
+        $articlesToNotEdit = array();
+        $articleToEdit = $article;
+        foreach ($this->articles as $item) {
+            if ($item->id() != $article->id()) {
+                fputcsv($file, $item);
+            } else {
+                fputcsv($file, [
+                    $article->id(), $article->name(), $article->description(), $article->image(), $article->isActive(), $article->endDate(), $article->currentPrice(),
+                    $article->directBidPrice1(), $article->directBidPrice2(), $article->directBidPrice3()
+                ]);
+                /*array_push($articleToEdit, $article->id(), $article->name(), $article->description(), $article->image(), $article->isActive(), $article->endDate(), $currentPrice,
+                    $directBidPrice1, $directBidPrice2, $directBidPrice3);*/
+            }
+
+        }
+        //fputcsv($file, $articlesToNotEdit);
+        //fputcsv($file, $articleToEdit);
+        fclose($file);
+    }
+
     private function hydrate($data): Article
     {
         return new Article(

@@ -15,7 +15,7 @@ class CreateNewArticleService
         $this->articleRepository = $articleRepository;
     }
 
-    public function execute($name, string $description, string $image, bool $isActive, string $endDate,
+    public function execute(string $name, string $description, string $image, bool $isActive, string $endDate,
                             int $currentPrice, int $directBidPrice1, int $directBidPrice2, int $directBidPrice3)
     {
         $article = Article::create($name, $description, $image, $isActive, $endDate, $currentPrice, $directBidPrice1, $directBidPrice2, $directBidPrice3);

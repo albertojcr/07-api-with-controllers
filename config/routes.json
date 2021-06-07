@@ -26,7 +26,13 @@
   {
     "name": "create_article",
     "path": "/articles",
-    "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\User\\CreateUserController::execute",
+    "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\Article\\CreateArticleController::execute",
+    "methods": ["POST"]
+  },
+  {
+    "name": "edit_article",
+    "path": "/articles/{id}/edit",
+    "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\Article\\EditArticleController::execute",
     "methods": ["POST"]
   },
   {
