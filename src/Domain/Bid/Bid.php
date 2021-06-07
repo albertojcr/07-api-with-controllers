@@ -1,7 +1,7 @@
 <?php
 
 
-namespace IESLaCierva\Domain\Article\ValueObject;
+namespace IESLaCierva\Domain\Bid;
 
 
 class Bid implements \JsonSerializable

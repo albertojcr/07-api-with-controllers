@@ -10,5 +10,5 @@ interface ArticleRepository
 
     public function save(Article $article): void;
 
-    //public function edit(Article $article): void;
+    public function edit(Article $article): void;
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace IESLaCierva\Domain\Article\Exceptions;
+namespace IESLaCierva\Domain\Bid\Exceptions;
 
 use IESLaCierva\Domain\Exceptions\NotFoundException;
 use Throwable;

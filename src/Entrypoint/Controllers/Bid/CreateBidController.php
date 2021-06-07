@@ -1,8 +1,8 @@
 <?php
 
-namespace IESLaCierva\Entrypoint\Controllers\Article\ValueObject;
+namespace IESLaCierva\Entrypoint\Controllers\Bid;
 
-use IESLaCierva\Application\Article\ValueObject\CreateBid\CreateBidService;
+use IESLaCierva\Application\Bid\CreateBid\CreateBidService;
 use IESLaCierva\Infrastructure\Files\CsvBidRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

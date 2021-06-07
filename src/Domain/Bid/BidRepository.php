@@ -1,10 +1,9 @@
 <?php
 
 
-namespace IESLaCierva\Domain\Article;
+namespace IESLaCierva\Domain\Bid;
 
-
-use IESLaCierva\Domain\Article\ValueObject\Bid;
+use IESLaCierva\Domain\Bid\Bid;
 
 interface BidRepository
 {

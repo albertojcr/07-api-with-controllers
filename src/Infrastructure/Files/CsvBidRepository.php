@@ -2,9 +2,9 @@
 
 namespace IESLaCierva\Infrastructure\Files;
 
-use IESLaCierva\Domain\Article\Exceptions\BidNotFoundException;
-use IESLaCierva\Domain\Article\ValueObject\Bid;
-use IESLaCierva\Domain\Article\BidRepository;
+use IESLaCierva\Domain\Bid\Exceptions\BidNotFoundException;
+use IESLaCierva\Domain\Bid\Bid;
+use IESLaCierva\Domain\Bid\BidRepository;
 
 class CsvBidRepository implements BidRepository
 {

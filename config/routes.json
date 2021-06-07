@@ -30,15 +30,21 @@
     "methods": ["POST"]
   },
   {
+    "name": "edit_article",
+    "path": "/articles",
+    "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\Article\\EditArticleController::execute",
+    "methods": ["POST"]
+  },
+  {
     "name": "get_bids_by_article_id",
     "path": "/articles/{id}/bids",
-    "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\Article\\ValueObject\\GetBidsByArticleIdController::execute",
+    "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\Bid\\GetBidsByArticleIdController::execute",
     "methods": ["GET"]
   },
   {
     "name": "create_bid",
     "path": "/articles/{id}/bids/create",
-    "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\Article\\ValueObject\\CreateBidController::execute",
+    "controller": "\\IESLaCierva\\Entrypoint\\Controllers\\Bid\\CreateBidController::execute",
     "methods": ["POST"]
   }
 ]

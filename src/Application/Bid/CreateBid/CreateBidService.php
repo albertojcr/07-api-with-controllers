@@ -1,11 +1,9 @@
 <?php
 
-namespace IESLaCierva\Application\Article\ValueObject\CreateBid;
+namespace IESLaCierva\Application\Bid\CreateBid;
 
-use IESLaCierva\Domain\Article\BidRepository;
-use IESLaCierva\Domain\Article\ValueObject\Bid;
-use IESLaCierva\Domain\Article\ValueObject\Email;
-use IESLaCierva\Domain\Article\ValueObject\Role;
+use IESLaCierva\Domain\Bid\BidRepository;
+use IESLaCierva\Domain\Bid\Bid;
 
 class CreateBidService
 {

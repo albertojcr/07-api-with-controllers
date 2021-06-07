@@ -1,10 +1,10 @@
 <?php
 
 
-namespace IESLaCierva\Entrypoint\Controllers\Article\ValueObject;
+namespace IESLaCierva\Entrypoint\Controllers\Bid;
 
 
-use IESLaCierva\Application\Article\ValueObject\GetBidsByArticleId\GetBidsByArticleIdService;
+use IESLaCierva\Application\Bid\GetBidsByArticleId\GetBidsByArticleIdService;
 use IESLaCierva\Infrastructure\Files\CsvBidRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

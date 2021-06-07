@@ -70,4 +70,8 @@ class CsvArticleRepository implements ArticleRepository
         );
     }
 
+    public function edit(Article $article): void
+    {
+        // TODO: Implement edit() method.
+    }
 }
