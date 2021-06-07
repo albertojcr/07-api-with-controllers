@@ -1,4 +1,4 @@
-fetch("http://localhost:9200/users")
+fetch("http://localhost:9200/articles")
   .then(function (response) {
     return response.json();
   })
@@ -107,38 +107,45 @@ fetch("http://localhost:9200/users")
       this.reset();
     });
 
-    getBidsByArticleId(1);
-
-    function getBidsByArticleId(index) {
-      fetch(`http://localhost:9200/users/${index}/bids`)
-          .then(function (response) {
-            return response.json();
-          })
-          .then(function (data) {
-            console.log(data[0].createdAtTime);
-          });
-
-
-
-    }
-
-
-
-
     // Methods
     function getBidData(index) {
       let currentPrice = parseInt(data[index].currentPrice, 10);
       let directBid1 = parseInt(data[index].directBidPrice1, 10);
       let directBid2 = parseInt(data[index].directBidPrice2, 10);
       let directBid3 = parseInt(data[index].directBidPrice3, 10);
-      let bids = data[index].biddingHistory;
+      let bids = getBidHistoryByArticleId(parseInt(index)+1); //revisar esto
 
       printBidData(index, currentPrice, directBid1,
-        directBid2, directBid3, bids);
+        directBid2, directBid3);
+    }
+
+    function getBidHistoryByArticleId(index) {
+      fetch(`http://localhost:9200/articles/${index}/bids`)
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            printBidHistory(data);
+          });
+    }
+
+    function printBidHistory(bids) {
+      TBODY.innerHTML = "";
+      for (let i in bids) {
+        const ROW = document.createElement("tr");
+        const DATE = new Date(bids[i].createdAtDateTime);
+        ROW.innerHTML = `
+                <tr>
+                <td>${DATE.getDate()}/${DATE.getMonth() + 1}/${DATE.getFullYear()}</td>
+                <td>${DATE.getHours()}:${DATE.getMinutes()}:${DATE.getSeconds()}</td>
+                <td>${bids[i].price}€</td>
+                </tr>`;
+        TBODY.insertBefore(ROW, TBODY.firstChild);
+      }
     }
 
     function printBidData(index, currentPrice, directBid1,
-                          directBid2, directBid3, bids) {
+                          directBid2, directBid3) {
       document.getElementById('modalTitle').textContent = data[index].name;
       document.getElementById('modalImg').src = data[index].image;
       document.getElementById("currentPrice").innerHTML = currentPrice;
@@ -146,22 +153,6 @@ fetch("http://localhost:9200/users")
       DIRECTBIDBTN1.innerHTML = directBid1 + "€";
       DIRECTBIDBTN2.innerHTML = directBid2 + "€";
       DIRECTBIDBTN3.innerHTML = directBid3 + "€";
-
-      TBODY.innerHTML = "";
-      
-      for (let i in bids) {
-        const ROW = document.createElement("tr");
-        const DATE = new Date(bids[i].date);
-        ROW.innerHTML = `
-          <tr>
-          <td>${DATE.getDate()}/${
-          DATE.getMonth() + 1
-        }/${DATE.getFullYear()}</td>
-          <td>${DATE.getHours()}:${DATE.getMinutes()}:${DATE.getSeconds()}</td>
-          <td>${bids[i].precio}€</td>
-          </tr>`;
-        TBODY.insertBefore(ROW, TBODY.firstChild);
-      }
     }
 
     function prepareBidData(index, price) {
@@ -170,11 +161,10 @@ fetch("http://localhost:9200/users")
       let currentPrice = parseInt(price, 10);
 
       writeBidApi(INDEX, NOW, currentPrice);
-      successAlert();
     }
 
     function writeBidApi(index, now, price) {
-      let url = `https://subastapp-edcc8-default-rtdb.europe-west1.firebasedatabase.app/auction/${index}/biddingHistory.json`;
+      let url = `http://localhost:9200/articles/${index}/bids/create`;
       let data = {
         date: now,
         precio: price
@@ -190,24 +180,24 @@ fetch("http://localhost:9200/users")
         .then((res) => res.json())
         .catch((error) => console.error("Error:", error))
         .then(function(response) {
-          console.log("Success:", response)
-          updateBidInfoApi(index, price);
+          console.log("Success:", response);
+          successAlert();
+          editArticleApi(index, price);
         });
     }
 
-    function updateBidInfoApi(index, currentPrice) {
+    function editArticleApi(index, currentPrice) {
       let directBid1 = Math.ceil(currentPrice + currentPrice * 0.1);
       let directBid2 = directBid1 + 5;
       let directBid3 = directBid2 + 5;
 
-      let url = `https://subastapp-edcc8-default-rtdb.europe-west1.firebasedatabase.app/auction/${index}/.json`;
+      let url = `http://localhost:9200/articles/${index}/edit`;
       let data =  {
         currentPrice: currentPrice,
-        directBiddingPrices: [
-          directBid1,
-          directBid2,
-          directBid3
-      ]};
+        directBidPrice1: directBid1,
+        directBidPrice2: directBid2,
+        directBidPrice3: directBid3
+      };
 
       fetch(url, {
         method: "PATCH",
