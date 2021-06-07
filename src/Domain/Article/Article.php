@@ -35,13 +35,13 @@ class Article implements \JsonSerializable
     {
         return new self(uniqid(), $name, $description, $image, $isActive, $endDate, $currentPrice, $directBidPrice1, $directBidPrice2, $directBidPrice3);
     }
-
+/*
     public static function edit(string $id, string $name, string $description, string $image, bool $isActive, string $endDate,
                                 int $currentPrice, int $directBidPrice1, int $directBidPrice2, int $directBidPrice3): Article
     {
         return new self($id, $name, $description, $image, $isActive, $endDate, $currentPrice, $directBidPrice1, $directBidPrice2, $directBidPrice3);
     }
-
+*/
     public function id(): string
     {
         return $this->id;

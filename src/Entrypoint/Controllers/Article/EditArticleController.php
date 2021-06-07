@@ -20,7 +20,6 @@ class EditArticleController
 
     public function execute(Request $request): Response
     {
-        //$articleId = $request->get('id');
         $json = $request->getContent();
         $data = json_decode($json, true);
         $this->service->execute($data['id'], $data['name'], $data['description'], $data['image'], $data['isActive'], $data['endDate'], $data['currentPrice'], $data['directBidPrice1'], $data['directBidPrice2'], $data['directBidPrice3']);
