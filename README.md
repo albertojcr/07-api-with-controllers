@@ -1,6 +1,6 @@
 # App-Subastas-API
 
-Este repositorio contiene la aplicación de subastas basada en el modelo por capas que hemos estado trabajando (Application, Domain, Entrypoint, Infrastructure).
+Este repositorio contiene el código fuente de la aplicación de subastas, organizado por capas como hemos estado trabajando (Application, Domain, Entrypoint, Infrastructure).
 
 ## Instalación
 
